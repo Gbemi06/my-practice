@@ -27,7 +27,10 @@ productRouter.get("/", async (req, res, next) => {
       };
     }
     const productsList = await Product.findAll({
-      include: [Category, { model: Review, include: User }],
+      include: [
+        { model: Category, through: { attributes: [] } },
+        { model: Review, include: User },
+      ],
       where: query,
       order: [["price", "asc"]],
     });
@@ -42,7 +45,10 @@ productRouter.get("/:id", async (req, res, next) => {
     const aProduct = await Product.findByPk(
       { id: req.params.id },
       {
-        include: [Category, { model: Review, include: User }],
+        include: [
+          { model: Category, through: { attributes: [] } },
+          { model: Review, include: User },
+        ],
         Category,
       }
     );

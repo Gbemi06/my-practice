@@ -10,7 +10,11 @@ Review.belongsTo(Product);
 User.hasMany(Review);
 Review.belongsTo(User);
 
-Category.belongsToMany(Product, { through: ProductCategory });
-Product.belongsToMany(Category, { through: ProductCategory });
+Category.belongsToMany(Product, {
+  through: { model: ProductCategory, unique: false },
+});
+Product.belongsToMany(Category, {
+  through: { model: ProductCategory, unique: false },
+});
 
 export default { Review, Product, Category, User, ProductCategory };
