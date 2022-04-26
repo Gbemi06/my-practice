@@ -42,16 +42,13 @@ productRouter.get("/", async (req, res, next) => {
 });
 productRouter.get("/:id", async (req, res, next) => {
   try {
-    const aProduct = await Product.findByPk(
-      { id: req.params.id },
-      {
-        include: [
-          { model: Category, through: { attributes: [] } },
-          { model: Review, include: User },
-        ],
-        Category,
-      }
-    );
+    const aProduct = await Product.findByPk(req.params.id, {
+      include: [
+        { model: Category, through: { attributes: [] } },
+        { model: Review, include: User },
+      ],
+      Category,
+    });
     res.send(aProduct);
   } catch (error) {
     console.log(error);
